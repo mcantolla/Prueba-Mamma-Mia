@@ -8,10 +8,10 @@ function Navbar() {
 
 
     return (
-        <>
+        <div className="navWrapper">
         <NavLink to='/'>🍕 Pizzeria Mamma Mia!</NavLink>
         <NavLink to='/carrito'>🛒 $ {c.total} </NavLink>
-        </>
+        </div>
     )
   }
   

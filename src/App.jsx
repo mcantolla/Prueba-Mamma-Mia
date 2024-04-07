@@ -15,6 +15,7 @@ function App() {
 
   const [dataPizzas, setDataPizzas] = useState([])
   const [total, setTotal] = useState(0)
+  const [carrito, setCarrito] = useState()
 
   const getPizzas = async() => {
     const data = await fetch('/pizzas.json')
@@ -31,11 +32,11 @@ function App() {
   }, [])
 
   return (
-    <ContextApp.Provider value={{dataPizzas, setDataPizzas, total, setTotal}}>
+    <ContextApp.Provider value={{dataPizzas, setDataPizzas, total, setTotal, carrito, setCarrito}}>
       <Navbar/>
       <Routes>
         <Route path='/' element={<Home />}/>
-        <Route path='/pizza/:id' element={<Pizza data={dataPizzas}/>}/>
+        <Route path='/pizza/:pizzaName' element={<Pizza data={dataPizzas}/>}/>
         <Route path='/carrito' element={<Carrito data={dataPizzas}/>}/>
         <Route path='*' element={<NotFound />}/>
       </Routes>

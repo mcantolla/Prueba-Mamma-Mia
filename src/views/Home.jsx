@@ -1,18 +1,35 @@
 import { useContext } from "react"
-import { useParams } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import { ContextApp } from "../App"
 
 function Home() {
 
     const { pizzaName } = useParams()
     const c = useContext(ContextApp)
+    const navigate = useNavigate()
+
+    const handleClickDetails = (pizza) => {
+        navigate(`/pizza/${pizza.name}`)        
+    }
+
+    const handleClickAdd = (index) => {
+        c.dataPizzas.map((pizza, i) => {
+            if (i === index) {
+                pizza.count = pizza.count + 1
+                c.setTotal(c.total + pizza.price)
+            }
+        })
+    }
 
     return (
+    <>
+    <h1 className="title">¡Pizzeria Mamma Mia!</h1>
+    <p className="subTitle">¡Tenemos las mejores pizzas que podras encontrar!</p>
       <div className="galleryWrapper">
         {
             c.dataPizzas.map((pizza, index) => {
                 return (
-                    <div key={index}>
+                    <div className="galleryCard" key={index}>
                         <img src={pizza.img}/>
                         <h3>{pizza.name}</h3>
                         <ul> Ingredientes:
@@ -25,13 +42,14 @@ function Home() {
                         }
                         </ul>
                         <h2>$ {pizza.price}</h2>
-                        <button>Ver mas 👀</button>
-                        <button>Añadir 🛒</button>
+                        <button onClick={() => handleClickDetails(pizza)}>Ver mas 👀</button>
+                        <button onClick={() => handleClickAdd(index)}>Añadir 🛒</button>
                     </div>
                 )
             })
         }
       </div>
+      </>
     )
   }
   
